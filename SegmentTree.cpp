@@ -46,7 +46,29 @@ struct SegmentTree{
 	int query(int l, int r){
 		return query(0, n-1, l, r, 0);
 	}
-} tree;
+
+	//UPDATE
+	void update(int start, int ending, int node, int idx, int val){
+		if(start==ending){
+			st[node]=val;
+			return;
+		}
+		int mid=(start+ending)/2;
+		if(idx<=mid){
+			update(start, mid, 2*node+1, idx, val);
+		}
+		else{
+			update(mid+1, ending, 2*node+2, idx, val);
+		}
+		st[node]=st[2*node+1]+st[2*node+2];
+		return;
+	}
+
+	void update(int idx, int val){
+		update(0, n-1, 0, idx, val);
+	}
+
+}tree;
 
 
 int32_t main()
@@ -64,6 +86,8 @@ int32_t main()
 	SegmentTree tree;
 	tree.init(v.size());
 	tree.build(v);
+	cout<< tree.query(2, 5)<<endl;
+	tree.update(4, 10);
 	cout<< tree.query(2, 5);
 	return 0;
 }
