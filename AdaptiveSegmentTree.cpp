@@ -1,12 +1,9 @@
 struct SegmentTree{
-private:
-	int *st, n, DEAD;
-	int (*comb)(int, int);
+private: 
+	int *st, n, DEAD, (*comb)(int, int);
 public:
 	SegmentTree(int n, int (*comb)(int, int), int DEAD=0){
-		this->n=n;
-		this->comb=comb;
-		this->DEAD=DEAD;
+		this->n=n, this->comb=comb, this->DEAD=DEAD;
 		st=(int*)malloc(sizeof(int)*(this->n)<<2);
 		for(int i=0;i<(n<<2);i++)this->st[i]=DEAD;	
 	}
