@@ -17,9 +17,7 @@ public:
 		build(a, mid+1, rx, (x<<1)+2);
 		st[x]=this->comb(st[(x<<1)+1], st[(x<<1)+2]);
 	}
-	void build(int *a){
-		build(a, 0, n-1, 0);
-	}
+	void build(int *a){build(a, 0, n-1, 0);}
 	int query(int l, int r, int lx, int rx, int x){
 		if(rx<l or r<lx)return DEAD;
 		if(l<=lx and rx<=r)return st[x];
@@ -28,9 +26,7 @@ public:
 		int q2=query(l, r, mid+1, rx, (x<<1)+2); 
 		return this->comb(q1, q2);
 	}
-	int query(int l, int r){
-		return query(l, r, 0, n-1, 0);
-	}
+	int query(int l, int r){return query(l, r, 0, n-1, 0);}
 	void update(int idx, int val, int lx, int rx, int x){
 		if(lx==rx){st[x]=val;	return;}
 		int mid=(lx+rx)>>1;
@@ -38,7 +34,5 @@ public:
 		else update(idx, val, mid+1, rx, (x<<1)+2);
 		st[x]=this->comb((x<<1)+1, (x<<1)+2);
 	}
-	void update(int idx, int val){
-		update(idx, val, 0, n-1, 0);
-	}
+	void update(int idx, int val){update(idx, val, 0, n-1, 0);}
 };
