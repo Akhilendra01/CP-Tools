@@ -18,15 +18,15 @@ public:
 		this->n=n;
 		this->comb=comb;
 		this->DEAD=DEAD;
-		st=(int*)malloc(sizeof(int)*(this->n)*4);
-		for(int i=0;i<4*n;i++)this->st[i]=DEAD;	
+		st=(int*)malloc(sizeof(int)*(this->n)<<2);
+		for(int i=0;i<(n<<2);i++)this->st[i]=DEAD;	
 	}
 	void build(int *a, int lx, int rx, int x){
 		if(lx==rx){st[x]=a[lx]; return;}
 		int mid=(lx+rx)>>1;
-		build(a, lx, mid, 2*x+1);
-		build(a, mid+1, rx, 2*x+2);
-		st[x]=comb(st[2*x+1], st[2*x+2]);
+		build(a, lx, mid, (x<<1)+1);
+		build(a, mid+1, rx, (x<<1)+2);
+		st[x]=comb(st[(x<<1)+1], st[(x<<1)+2]);
 	}
 	void build(int *a){
 		build(a, 0, n-1, 0);
@@ -35,8 +35,8 @@ public:
 		if(rx<l or r<lx)return DEAD;
 		if(l<=lx and rx<=r)return st[x];
 		int mid=(lx+rx)>>1;
-		int q1=query(l, r, lx, mid, 2*x+1); 
-		int q2=query(l, r, mid+1, rx, 2*x+2); 
+		int q1=query(l, r, lx, mid, (x<<1)+1); 
+		int q2=query(l, r, mid+1, rx, (x<<1)+2); 
 		return comb(q1, q2);
 	}
 	int query(int l, int r){
@@ -45,16 +45,14 @@ public:
 	void update(int idx, int val, int lx, int rx, int x){
 		if(lx==rx){st[x]=val;	return;}
 		int mid=(lx+rx)>>1;
-		if(idx<=mid)update(idx, val, lx, mid, 2*x+1);
-		else update(idx, val, mid+1, rx, 2*x+2);
-		st[x]=comb(2*x+1, 2*x+2);
+		if(idx<=mid)update(idx, val, lx, mid, (x<<1)+1);
+		else update(idx, val, mid+1, rx, (x<<1)+2);
+		st[x]=comb((x<<1)+1, (x<<1)+2);
 	}
 	void update(int idx, int val){
 		update(idx, val, 0, n-1, 0);
 	}
 };
-
-
 
 int comb(int a, int b){return max(a, b);}
 
