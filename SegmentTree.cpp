@@ -3,6 +3,7 @@ using namespace std;
 
 #define int long long int
 
+// add point query sir
 
 struct SegmentTree{
 	vector<int> st;
