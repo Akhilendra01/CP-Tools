@@ -29,7 +29,7 @@ public:
 		int mid=(lx+rx)>>1;
 		if(idx<=mid)update(idx, val, lx, mid, (x<<1)+1);
 		else update(idx, val, mid+1, rx, (x<<1)+2);
-		st[x]=this->comb((x<<1)+1, (x<<1)+2);
+		st[x]=this->comb(st[(x<<1)+1], st[(x<<1)+2]);
 	}
 	void update(int idx, int val){update(idx, val, 0, n-1, 0);}
 };
