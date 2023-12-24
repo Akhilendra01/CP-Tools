@@ -22,20 +22,17 @@ public:
       if(rx<l or r<lx)return DEAD;
       if(l<=lx and rx<=r)return st[x];
       int mid=(lx+rx)>>1;
-      int q1=query(l, r, lx, mid, (x<<1)+1); 
-      int q2=query(l, r, mid+1, rx, (x<<1)+2); 
+      T q1=query(l, r, lx, mid, (x<<1)+1); 
+      T q2=query(l, r, mid+1, rx, (x<<1)+2); 
       return this->comb(q1, q2);
   }
   T query(int l, int r){return query(l, r, 0, n-1, 0);}
-  void update(int idx, int val, int lx, int rx, int x){
+  void update(int idx, T val, int lx, int rx, int x){
       if(lx==rx){st[x]=val;   return;}
-      int mid=(lx+rx)>>1;
+      int mid=(lx+rx)/2;
       if(idx<=mid)update(idx, val, lx, mid, (x<<1)+1);
       else update(idx, val, mid+1, rx, (x<<1)+2);
       st[x]=this->comb(st[(x<<1)+1], st[(x<<1)+2]);
   }
-  void update(int idx, int val){update(idx, val, 0, n-1, 0);}
-  T get(int idx){
-    return st[idx];
-  }
+  void update(int idx, T val){update(idx, val, 0, n-1, 0);}
 };
