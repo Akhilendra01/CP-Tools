@@ -24,9 +24,9 @@ public:
   Z& operator/=(const Z& b) {n = (n * inv(b.n))% M; return *this; }
   Z& operator%=(const Z& b) {n = (n % b.n); return *this; }
   Z& operator++(){n=(n+1)%M; return *this;} 
-	Z operator++(int32_t) {Z temp(*this); ++(*this); return temp; }
+  Z operator++(int32_t) {Z temp(*this); ++(*this); return temp; }
   Z& operator--(){n=(n-1+M)%M; return *this;} 
-	Z operator--(int32_t) {Z temp(*this); --(*this); return temp; }
+  Z operator--(int32_t) {Z temp(*this); --(*this); return temp; }
   bool operator==(const Z&b){return n==b.n;}
   bool operator!=(const Z&b){return n!=b.n;}
 };
